@@ -1,14 +1,14 @@
 package server
 
 import (
-	"gitlab.com/DevelopmentAveonline/ILA/lib/utils"
+	"ecommerce/errors"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 var errorHandler = func(ctx *fiber.Ctx, err error) error {
 
-	err = utils.ErrorHandler(ctx, err)
+	err = errors.ErrorHandler(ctx, err)
 	if err != nil {
 		return err
 	}
