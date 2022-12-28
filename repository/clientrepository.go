@@ -34,6 +34,9 @@ var (
 	psqlFindByIdClient = `
 	    SELECT name, accumulation_points FROM client WHERE id = $1;
 	`
+	psqlFindByNameClient = `
+		SELECT id, name, accumulation_points FROM client WHERE name = $1;
+	`
 
 	psqlFindAllClients = `
 	    SELECT name, accumulation_points, role FROM client;
@@ -116,6 +119,30 @@ func (d ClientRepository) FindByIdClient(idClient string) (m models.Client, err 
 	for rows.Next() {
 		AccumulationPointsNull := sql.NullInt64{}
 		err = rows.Scan(
+			&m.Name,
+			&AccumulationPointsNull,
+		)
+		if err != nil {
+			return m, errors.ErrSQLSyntax(fmt.Sprintf("%s", err))
+		}
+		m.AccumulationPoints = AccumulationPointsNull.Int64
+
+		if err != nil {
+			return m, errors.ErrSQLSyntax(fmt.Sprintf("%s", err))
+		}
+	}
+	defer rows.Close()
+	return m, nil
+}
+func (d ClientRepository) FindByNameClient(name string) (m models.Client, err error) {
+	rows, err := d.db.Query(context.Background(), psqlFindByNameClient, name)
+	if err != nil {
+		return m, errors.ErrSQLSyntax(fmt.Sprintf("%s", err))
+	}
+	for rows.Next() {
+		AccumulationPointsNull := sql.NullInt64{}
+		err = rows.Scan(
+			&m.IDClient,
 			&m.Name,
 			&AccumulationPointsNull,
 		)

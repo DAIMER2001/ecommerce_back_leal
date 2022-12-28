@@ -9,9 +9,10 @@ func (s Server) registerRoutes() {
 
 	clientRouter := s.engine.Group("api/v1/client")
 	clientRouter.Post("/auth", s.AuthClient)
-	clientRouter.Get("/:id", s.FindAllClientById)
+	clientRouter.Get("/points/:name", s.GetClientByName)
+	clientRouter.Get("/:id", s.GetClientById)
 	clientRouter.Get("/", s.FindAllClients)
 	clientRouter.Post("/", s.CreateClient)
-	clientRouter.Put("/", s.UpdateClient)
+	clientRouter.Put("/", s.UpdatePointsClient)
 	clientRouter.Delete("/", s.DeleteClient)
 }

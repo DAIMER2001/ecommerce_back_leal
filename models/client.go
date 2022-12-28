@@ -28,5 +28,6 @@ type ClientRepository interface {
 	UpdateAccumulationPointsClient(accumulation_points int, idClient string) (err error)
 	DeleteClient(clientId string) (err error)
 	FindByIdClient(clientId string) (m Client, err error)
+	FindByNameClient(name string) (m Client, err error)
 	FindAllClient() (m []ClientCreate, err error)
 }

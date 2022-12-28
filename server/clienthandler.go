@@ -22,7 +22,7 @@ func (s Server) CreateClient(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusCreated).JSON(clientWithValues)
 }
 
-func (s Server) UpdateClient(ctx *fiber.Ctx) error {
+func (s Server) UpdatePointsClient(ctx *fiber.Ctx) error {
 	price := ctx.Query("price", "")
 	idClient := ctx.Query("id_client", "")
 
@@ -31,7 +31,7 @@ func (s Server) UpdateClient(ctx *fiber.Ctx) error {
 		return errors.ErrorHandler(ctx, errors.ErrParseJSONBody(err.Error()))
 	}
 
-	err = s.clientService.UpdateClient(int(accumulation*0.10), idClient)
+	err = s.clientService.UpdatePointsClient(int(accumulation*0.10), idClient)
 	if err != nil {
 		return errors.ErrorHandler(ctx, err)
 	}
@@ -39,10 +39,21 @@ func (s Server) UpdateClient(ctx *fiber.Ctx) error {
 	return ctx.JSON(fiber.StatusOK)
 }
 
-func (s Server) FindAllClientById(ctx *fiber.Ctx) error {
+func (s Server) GetClientById(ctx *fiber.Ctx) error {
 
 	id := ctx.Params("id_client", "")
 	response, err := s.clientService.FindByIdClient(id)
+
+	if err != nil {
+		return err
+	}
+	return ctx.Status(fiber.StatusOK).JSON(response)
+}
+
+func (s Server) GetClientByName(ctx *fiber.Ctx) error {
+
+	id := ctx.Params("name", "")
+	response, err := s.clientService.FindByNameClient(id)
 
 	if err != nil {
 		return err
