@@ -11,7 +11,7 @@ FROM alpine:3.15.6
 ENV HTTP_ADDRESS="0.0.0.0:8000"
 ENV ALLOW_ORIGINS=""
 
-ENV POSTGRES_HOST="dpg-cemc3dsgqg4ekmaufbr0-a.oregon-postgres.render.com"
+ENV POSTGRES_HOST="dpg-cemc3dsgqg4ekmaufbr0-a"
 ENV POSTGRES_PORT=5432
 ENV POSTGRES_DATABASE="ecommerce_back"
 ENV POSTGRES_USERNAME="daimer"
