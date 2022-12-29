@@ -13,6 +13,6 @@ func (s Server) registerRoutes() {
 	clientRouter.Get("/:id", s.GetClientById)
 	clientRouter.Get("/", s.FindAllClients)
 	clientRouter.Post("/", s.CreateClient)
-	clientRouter.Put("/", s.UpdatePointsClient)
+	clientRouter.Put("/points", s.UpdatePointsClient)
 	clientRouter.Delete("/", s.DeleteClient)
 }
