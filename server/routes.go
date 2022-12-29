@@ -14,5 +14,7 @@ func (s Server) registerRoutes() {
 	clientRouter.Get("/", s.FindAllClients)
 	clientRouter.Post("/", s.CreateClient)
 	clientRouter.Put("/points", s.UpdatePointsClient)
+	clientRouter.Put("/redime-points", s.RedimeProduct)
+
 	clientRouter.Delete("/", s.DeleteClient)
 }

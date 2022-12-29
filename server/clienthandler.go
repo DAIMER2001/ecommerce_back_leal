@@ -39,6 +39,24 @@ func (s Server) UpdatePointsClient(ctx *fiber.Ctx) error {
 	return ctx.JSON(fiber.StatusOK)
 }
 
+func (s Server) RedimeProduct(ctx *fiber.Ctx) error {
+	points := ctx.Query("points", "")
+	idClient := ctx.Query("id_client", "")
+
+	pointsN, err := strconv.Atoi(points)
+
+	if err != nil {
+		return errors.ErrorHandler(ctx, errors.ErrParseJSONBody(err.Error()))
+	}
+
+	err = s.clientService.UpdatePointsClient(pointsN, idClient)
+	if err != nil {
+		return errors.ErrorHandler(ctx, err)
+	}
+
+	return ctx.JSON(fiber.StatusOK)
+}
+
 func (s Server) GetClientById(ctx *fiber.Ctx) error {
 
 	id := ctx.Params("id_client", "")
